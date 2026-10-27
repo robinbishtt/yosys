@@ -49,5 +49,6 @@ module top(input a);
 endmodule
 EOF
 opt_clean
+# chformal -assume2assert
 select -assert-count 2 r:FLAVOR=assert
 select -assert-count 0 r:FLAVOR=assume
