@@ -5,11 +5,13 @@ module top(input a);
   always @* begin
     assert(a);
     assume(a);
+    cover(a);
   end
 endmodule
 EOF
 select -assert-count 1 r:FLAVOR=assert
 select -assert-count 1 r:FLAVOR=assume
+select -assert-count 1 r:FLAVOR=cover
 
 verilog_flag:
 design -reset
@@ -18,11 +20,13 @@ module top(input a);
   always @* begin
     assert(a);
     assume(a);
+    cover(a);
   end
 endmodule
 EOF
 select -assert-count 0 r:FLAVOR=assert
 select -assert-count 2 r:FLAVOR=assume
+select -assert-count 1 r:FLAVOR=cover
 
 slang_default:
 design -reset
@@ -31,12 +35,14 @@ module top(input a);
   always @* begin
     assert(a);
     assume(a);
+    cover(a);
   end
 endmodule
 EOF
 opt_clean
 select -assert-count 1 r:FLAVOR=assert
 select -assert-count 1 r:FLAVOR=assume
+select -assert-count 1 r:FLAVOR=cover
 
 slang_flag:
 design -reset
@@ -45,10 +51,11 @@ module top(input a);
   always @* begin
     assert(a);
     assume(a);
+    cover(a);
   end
 endmodule
 EOF
 opt_clean
-# chformal -assert2assume
 select -assert-count 0 r:FLAVOR=assert
 select -assert-count 2 r:FLAVOR=assume
+select -assert-count 1 r:FLAVOR=cover
