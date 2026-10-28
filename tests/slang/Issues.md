@@ -3,6 +3,13 @@
 - `--icells`
 - `--defer`
 
+## Lower priority
+
+- `$initstate` is only supported by read_verilog and not read_slang
+- `--mem2reg` / `--nomem2reg`
+- `--pwires`
+- `--overwrite` / `--no-overwrite`
+
 # Changes Implemented for Slang
 
 - `--specify`
@@ -37,6 +44,10 @@
 # Remaining Slang failures
 
 ## Unknown Modules
+
+- Definitions must be imported before `read_slang`, rather than afterward.
+	- can usually be fixed in the test, but would be nice if it worked like read verilog, 
+	- I assume it's blocked by the same thing as defer
 
 ### Techmap
 
@@ -133,6 +144,8 @@
 - basic/various/splitnets.ys: ERROR: Assertion failed: selection contains 1 elements instead of the asserted 0: w:a
 
 ## Optimization
+
+- Arithmetic operands are extended to matching widths, unlike `read_verilog`, see basic/opt/opt_expr_alu.ys
 
 - basic/peepopt/muldiv_c.ys: ERROR: Assertion failed: selection is not empty: t:$div
 - basic/proc/yosys_latch.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 2: t:$adlatch
