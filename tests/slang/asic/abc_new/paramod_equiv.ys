@@ -1,5 +1,5 @@
 # two paramods of one module
-read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
+read_slang --best-effort-hierarchy --allow-use-before-declare --ignore-timing --std latest <<EOT
 module inc #(parameter W = 4) (input [W-1:0] a, output [W-1:0] y);
 	assign y = a + 1;
 endmodule

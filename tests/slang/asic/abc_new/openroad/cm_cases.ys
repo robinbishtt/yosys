@@ -1,7 +1,7 @@
 # https://github.com/The-OpenROAD-Project/OpenROAD/blob/80443953721b0134bed51bbab17a633a575098a6/src/syn/test/cm_test.cc
 
 # syn cm_test cases; small ones must hit the one obvious cell (Adder12 exceeds openroad's area bound, 304 vs 280.8)
-read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
+read_slang --best-effort-hierarchy --allow-use-before-declare --ignore-timing --std latest <<EOT
 module SingleAnd(input a, b, output y); assign y = a & b; endmodule
 module NandFromAndThenNot(input a, b, output y); assign y = ~(a & b); endmodule
 module NorFromOrThenNot(input a, b, output y); assign y = ~(a | b); endmodule
@@ -51,20 +51,20 @@ opt -fast
 abc_new -liberty cm_test_cells.lib
 opt_clean
 select -assert-none t:$_*_
-select -assert-count 1 SingleAnd/t:AND2
-select -assert-count 1 NandFromAndThenNot/t:NAND2
-select -assert-count 1 NorFromOrThenNot/t:NOR2
-select -assert-count 1 Andnot/t:ANDNOT2
-select -assert-count 1 AoiPattern/t:AOI21
-select -assert-count 1 AoiPattern/t:*
-select -assert-count 3 OrOfAnds/t:*
-select -assert-count 2 SharedFanin/t:AND2
-select -assert-count 3 FourInputAndTree/t:*
-select -assert-count 1 MuxFromAig/t:MUX2
-select -assert-count 1 MuxFromAig/t:*
-select -assert-none ConstantOutput/t:*
-select -assert-count 1 InverterOnly/t:INV
-select -assert-count 1 InverterOnly/t:*
+select -assert-count 1 SingleAnd$*/t:AND2
+select -assert-count 1 NandFromAndThenNot$*/t:NAND2
+select -assert-count 1 NorFromOrThenNot$*/t:NOR2
+select -assert-count 1 Andnot$*/t:ANDNOT2
+select -assert-count 1 AoiPattern$*/t:AOI21
+select -assert-count 1 AoiPattern$*/t:*
+select -assert-count 3 OrOfAnds$*/t:*
+select -assert-count 2 SharedFanin$*/t:AND2
+select -assert-count 3 FourInputAndTree$*/t:*
+select -assert-count 1 MuxFromAig$*/t:MUX2
+select -assert-count 1 MuxFromAig$*/t:*
+select -assert-none ConstantOutput$*/t:*
+select -assert-count 1 InverterOnly$*/t:INV
+select -assert-count 1 InverterOnly$*/t:*
 # Best observed post-mapping area + 20% headroom.
 stat -liberty cm_test_cells.lib
 read_slang --allow-use-before-declare --ignore-timing --std latest cells_sim.v

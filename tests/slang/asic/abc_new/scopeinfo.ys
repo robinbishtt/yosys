@@ -1,5 +1,5 @@
 # $scopeinfo cells deleted by abc_new, kept by abc
-read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
+read_slang --best-effort-hierarchy --allow-use-before-declare --ignore-timing --std latest <<EOT
 module sub(input [1:0] a, output y); assign y = &a; endmodule
 module top(input [3:0] a, output y);
 	wire [1:0] t;

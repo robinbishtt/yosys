@@ -1,5 +1,5 @@
 # lib_whitebox mux box mapped itself, then used as timing box (needs -unit_delay, see whitebox_no_timing.ys)
-read_slang --allow-use-before-declare --ignore-timing --std latest -specify <<EOT
+read_slang --best-effort-hierarchy --allow-use-before-declare --ignore-timing --std latest -specify <<EOT
 (* abc9_box, lib_whitebox *)
 module MX4(input D0, D1, D2, D3, S0, S1, output Y);
 	specify
@@ -28,7 +28,7 @@ design -save gold
 design -load gold_hier
 techmap
 abc_new -liberty openroad/cm_test_cells.lib
-select -assert-count 1 top/t:MX4
+select -assert-count 1 top/t:MX4$*
 select -assert-none top/t:$_*_
 opt_clean
 check -assert

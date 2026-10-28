@@ -6,6 +6,7 @@ EOT
 opt_clean
 
 design -stash map
+design -copy-from map m
 
 read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
 module top(output o);

@@ -4,7 +4,7 @@
 # on the logic cone, but are driven by cell that are. If we were to destroy these
 # cells we need to make sure any pins they drive are primary outputs in ABC to
 # preserve correctness.
-read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
+read_slang --allow-use-before-declare --ignore-timing --std latest -v cells_sim.v <<EOT
 module top(clk, a, b, c, d);
 	input clk;
 	input a;
@@ -45,6 +45,7 @@ EOT
 opt_clean
 
 read_slang --allow-use-before-declare --ignore-timing --std latest cells_sim.v
+proc
 opt_clean
 hierarchy -top top
 proc
@@ -64,6 +65,7 @@ select -assert-count 2 t:DFF
 check -assert
 
 read_slang --allow-use-before-declare --ignore-timing --std latest cells_sim.v
+proc
 opt_clean
 flatten
 opt_clean

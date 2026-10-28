@@ -9,9 +9,9 @@ xnor (y[5], a, b);
 endmodule
 EOT
 opt_clean
-select -assert-count 1 t:$and a:src=<inlined>:2.4-2.17 %i
-select -assert-count 1 t:$and a:src=<inlined>:3.5-3.18 %i
-select -assert-count 1 t:$or a:src=<inlined>:4.3-4.16 %i
-select -assert-count 1 t:$or a:src=<inlined>:5.4-5.17 %i
-select -assert-count 1 t:$xor a:src=<inlined>:6.4-6.17 %i
-select -assert-count 1 t:$xor a:src=<inlined>:7.5-7.18 %i
+select -assert-count 1 t:$and a:src=<inlined>:2.5 %i
+select -assert-count 1 t:$and a:src=<inlined>:3.6 %i
+select -assert-count 1 t:$or a:src=<inlined>:4.4 %i
+select -assert-count 1 t:$or a:src=<inlined>:5.5 %i
+select -assert-count 1 t:$xor a:src=<inlined>:6.5 %i
+select -assert-count 1 t:$xnor a:src=<inlined>:7.6 %i
