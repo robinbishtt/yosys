@@ -1,6 +1,38 @@
+# Changes Needed for Slang
+
+- `--icells`
+- `--defer`
+
 # Changes Implemented for Slang
 
+- `--specify`
+	- Unsure if 100% correct, tried to copy / merge read_verilog parser into sv_elab
+- `--noopt`
+
 # Passing Tests with Changes Needed to Tests
+
+- Inferred top attributes: unset `top` before hierarchy.
+  - basic/svtypes/typedef_struct_port.ys
+  - basic/various/cellarray_array_connections.ys
+  - basic/verilog/for_decl_shadow.ys
+
+- Default flattening: add `--best-effort-hierarchy`.
+  - basic/various/json_scopeinfo.ys
+  - basic/various/blackbox_wb.ys
+
+- Default memory inference: add `--no-implicit-memories`.
+  - basic/opt/opt_dff_eqbits.ys
+
+- Slang adds a lot of Buffers: use `opt_clean`, can affect `opt_expr` if cleaning is not done first
+  - basic/various/abstract_init.ys
+  - basic/various/abstract_state.ys
+  - basic/various/keep_hierarchy.ys
+
+- Slang emits `$aldff` cells, need `opt_dff` to run.
+  - basic/various/rename_wire_move_to_cell.ys
+
+- Formal cells lack `keep`: add `setattr -set keep 1 t:$check` before `chformal -lower`.
+  - basic/opt/opt_merge_properties.ys
 
 # Remaining Slang failures
 
