@@ -12,6 +12,8 @@
 
 # Changes Implemented for Slang
 
+- Only in a local branch for sv_elab, need to clean up that branch and make a few PRs into sv_elab, but those are probably blocked by rewriter
+
 - `--specify`
 	- Unsure if 100% correct, tried to copy / merge read_verilog parser into sv_elab
 - `--noopt`
