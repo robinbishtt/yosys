@@ -1,4 +1,5 @@
-read_slang --allow-use-before-declare --ignore-timing --std latest  << EOT
+# need because slang uses params in techlib
+read_slang --blackboxed-module SB_MAC16 -v ../../../../techlibs/ice40/cells_sim.v --allow-use-before-declare --ignore-timing --std latest  << EOT
 module top(input wire [14:0] a, output wire [18:0] b);
 assign b = a*$unsigned(5'b01111);
 endmodule
@@ -8,8 +9,9 @@ opt_clean
 prep
 ice40_dsp
 
-read_slang --allow-use-before-declare --ignore-timing --std latest  << EOT
-module ref(a, b);
+# need because slang uses params in techlib
+read_slang --blackboxed-module SB_MAC16 -v ../../../../techlibs/ice40/cells_sim.v --allow-use-before-declare --ignore-timing --std latest  << EOT
+module \ref (a, b);
   wire _0_;
   wire _1_;
   wire _2_;
@@ -77,7 +79,7 @@ opt_clean
 techmap -wb -D EQUIV -autoproc -map +/ice40/cells_sim.v
 
 async2sync
-equiv_make top ref equiv
+equiv_make top \ref  equiv
 select -assert-any -module equiv t:$equiv
 equiv_induct
 equiv_status -assert

@@ -10,6 +10,7 @@ opt_clean
 
 hierarchy -top top
 proc
+setattr -set keep 1 t:$check
 chformal -lower
 clean
 opt_merge

@@ -4,7 +4,7 @@ read_liberty -lib -unit_delay ../liberty/dff.lib
 read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
 module top(input clk, g, en, input [1:0] a, b, output [1:0] s, output c, output z, output q);
 	wire [1:0] t = a ^ b;
-	halfadder ha0(.A(t[0]), .B(b[1]), .CO(c), .Y(s[0]));
+	halfadder ha0(.A(t[0]), .B(b[1]), .C(c), .Y(s[0]));
 	latch l0(.D(t[1]), .G(g), .Q(s[1]), .QN());
 	tri_inv ti(.A(a[0] & b[0]), .S(en), .Z(z));
 	dff d0(.D(t[0] | t[1]), .CLK(clk), .Q(q));

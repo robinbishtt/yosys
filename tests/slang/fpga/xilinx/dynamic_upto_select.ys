@@ -1,11 +1,11 @@
 # https://github.com/YosysHQ/yosys/issues/892
 
-read_slang --allow-use-before-declare --ignore-timing --std latest  <<EOT
-module top (input clk, sel, di, output do);
+read_slang --no-implicit-memories --allow-use-before-declare --ignore-timing --std latest  <<EOT
+module top (input clk, sel, di, output \do );
 	reg [0:1] data [0:0];
 	always @(posedge clk)
 		data[0] <= {di, data[0][0]};
-	assign do = data[0][sel];
+	assign \do  = data[0][sel];
 endmodule
 EOT
 opt_clean

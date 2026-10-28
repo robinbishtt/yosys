@@ -1,3 +1,4 @@
+read_liberty -lib -unit_delay openroad/cm_test_cells.lib
 # box instances with unconnected ports (the unused-output instance gets dropped, not asserted)
 read_slang --allow-use-before-declare --ignore-timing --std latest <<EOT
 module top(input a, b, output y, z);
@@ -10,7 +11,6 @@ endmodule
 EOT
 opt_clean
 
-read_liberty -lib -unit_delay openroad/cm_test_cells.lib
 hierarchy -top top
 proc
 opt

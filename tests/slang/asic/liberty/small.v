@@ -1,6 +1,6 @@
 /** small, meaningless design to test loading of liberty files */
 
-module small
+module \small
 (
     input clk,
     output reg[7:0] count

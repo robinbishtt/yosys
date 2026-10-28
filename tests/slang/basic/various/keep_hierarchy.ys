@@ -1,5 +1,5 @@
 # Keep unused logic for the hierarchy cost checks.
-read_slang --std latest --best-effort-hierarchy <<EOF
+read_slang --no-proc --std latest --best-effort-hierarchy <<EOF
 (* blackbox *)
 (* gate_cost_equivalent=150 *)
 module macro;
@@ -46,10 +46,9 @@ module top;
 	branch3_wrapper wrapper();
 endmodule
 EOF
-opt_clean
 
 hierarchy -top top
 keep_hierarchy -min_cost 500
 select -assert-mod-count 2 A:keep_hierarchy
-select -assert-any A:keep_hierarchy branch2 %i
-select -assert-any A:keep_hierarchy branch3 %i
+select -assert-any A:keep_hierarchy branch2$* %i
+select -assert-any A:keep_hierarchy branch3$* %i

@@ -1,3 +1,5 @@
+read_liberty -lib -unit_delay cm_test_cells.lib
+read_liberty -lib -unit_delay sm_test_cells.lib
 # https://github.com/The-OpenROAD-Project/OpenROAD/blob/80443953721b0134bed51bbab17a633a575098a6/src/cut/test/side_outputs_extract.v
 
 # This test makes sure that we keep track of any outputs that aren't directly
@@ -36,8 +38,6 @@ endmodule
 EOT
 opt_clean
 
-read_liberty -lib -unit_delay cm_test_cells.lib
-read_liberty -lib -unit_delay sm_test_cells.lib
 hierarchy -top top
 abc_new -liberty cm_test_cells.lib -liberty sm_test_cells.lib
 select -assert-count 1 t:AND2

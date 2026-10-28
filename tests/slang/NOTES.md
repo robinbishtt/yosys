@@ -229,10 +229,16 @@ This behavior should probably be fixed?
 
 ## Other
 
+### Flags
+
 `icells` - blocked by slang? seems to parse `\$not #(.A_SIGNED(0), .A_WIDTH(1), .Y_WIDTH(1)) inv (.A(a), .Y(q));` with the type as `$not` as opposed to `\$not`
 `specify` - mostly done except blackbox specify
-`defer`
-`noopt`
+`defer` 
+`noopt` 
 `nomem2reg`
 `pwires`
 `overwrite`
+
+### Non-Slang issues
+
+- tests/abc_new/mixed_cells_normal_lib.ys - typo

@@ -1,3 +1,4 @@
+read_verilog -lib +/xilinx/cells_sim.v
 read_slang --allow-use-before-declare --ignore-timing --std latest  <<EOT
 module top(inout io);
     wire in;
