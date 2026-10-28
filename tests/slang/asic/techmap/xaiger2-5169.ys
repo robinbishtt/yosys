@@ -57,7 +57,7 @@ endmodule
 EOF
 opt_clean
 
-abc_new -liberty ../../tests/liberty/normal.lib -liberty ../../tests/liberty/dff.lib
+abc_new -liberty ../../../../tests/liberty/normal.lib -liberty ../../../../tests/liberty/dff.lib
 
 # the mapped box must replace the original one, not be added next to it
 select -assert-count 1 t:CC_MX4
