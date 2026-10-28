@@ -1,10 +1,20 @@
+# Changes Implemented for Slang
+
+# Passing Tests with Changes Needed to Tests
+
 # Remaining Slang failures
 
 ## Unknown Modules
 
+### Techmap
+
 - asic/techmap/techmap_chtype.ys: <inlined>:15: ERROR: unknown module '_TECHMAP_PLACEHOLDER_'
 - asic/techmap/cellname.ys: <inlined>:4: ERROR: unknown module 'namedsub'
 - asic/techmap/autopurge.ys: <inlined>:2: ERROR: unknown module 'foobar'
+- asic/techmap/techmap_replace.ys: <inlined>:2: ERROR: unknown module 'foobar'
+
+### Primitive Libs
+
 - fpga/xilinx/dsp_abc9.ys: <inlined>:2: ERROR: unknown module 'DSP48E1'
 - fpga/xilinx/abc9_dff.ys: <inlined>:2: ERROR: unknown module 'FDRE'
 - fpga/xilinx/xilinx_dsp.ys: <inlined>:2: ERROR: unknown module 'DSP48E1'
@@ -16,18 +26,47 @@
 - basic/verific/blackbox_empty.ys: <inlined>:2: ERROR: parameter 'PATH' does not exist in 'TEST_CELL' [-Wundefined-param-override]
 - basic/various/bug3462.ys: <inlined>:4: ERROR: parameter 'd' does not exist in 'sub' [-Wundefined-param-override]
 
+### Cannot reset Params
+
+- asic/abc_new/librelane/abc_librelane_area_0.ys: ERROR: Module `spm' is used with parameters but is not parametric!
+	- abc_librelane_area_{1,2,3}.ys: same issue
+- asic/abc_new/librelane/abc_librelane_delay_0.ys: ERROR: Module `spm' is used with parameters but is not parametric!
+	- abc_librelane_delay_{1,2,3}.ys: same issue
+- basic/various/hierarchy_reprocess_abc9.ys: ERROR: Module `bb' is used with parameters but is not parametric!
+
 ## Syntax
 
+### General / Unsure
+
+- basic/various/rename_unescape.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: w:$e
+- basic/various/struct_access.ys: struct_access.sv:24: ERROR: invalid member access for type 'logic[1:0]'
+
+### Keyword
+
 - asic/techmap/bug2972.ys: <inlined>:2: ERROR: expected identifier
+	- Uses `do` as name
+
+### Idents with $
+
 - asic/techmap/dfflibmap_formal.ys: <inlined>:4: ERROR: expected member
 - asic/techmap/dlatchlibmap_formal.ys: <inlined>:4: ERROR: expected member
-- asic/techmap/techmap_replace.ys: <inlined>:2: ERROR: unknown module 'foobar'
-- asic/techmap/cellmatch.ys: <inlined>:3: ERROR: only 'output' variable port declarations may have an initializer expression
-- asic/techmap/bug2183.ys: <inlined>:5: ERROR: expression is not assignable
-- basic/various/rand_const.ys: rand_const.sv:2: ERROR: member not allowed in module declaration
-- basic/various/box_derive.ys: <inlined>:2: ERROR: use of undeclared identifier 'X'
-- basic/various/struct_access.ys: struct_access.sv:24: ERROR: invalid member access for type 'logic[1:0]'
 - fpga/xilinx/xilinx_srl_enable.ys: <inlined>:9: ERROR: expected identifier
+
+### Net initializers
+
+- asic/techmap/cellmatch.ys: <inlined>:3: ERROR: only 'output' variable port declarations may have an initializer expression
+
+### Constant inout
+
+- asic/techmap/bug2183.ys: <inlined>:5: ERROR: expression is not assignable
+
+### rand keyword
+
+- basic/various/rand_const.ys: rand_const.sv:2: ERROR: member not allowed in module declaration
+
+### Attribute scope
+
+- basic/various/box_derive.ys: <inlined>:2: ERROR: use of undeclared identifier 'X'
 
 ## Hierarchy
 
@@ -37,7 +76,9 @@
 - asic/techmap/module_not_derived.ys: ERROR: Assertion failed: selection is empty: t:mycell a:module_not_derived %i
 - basic/opt/bug1793.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 2: sub/o:*
 - basic/various/rename_scramble_name.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: c:$_*_
-- basic/various/rename_unescape.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: w:$e
+- asic/abc_new/scopeinfo.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
+- asic/abc_new/whitebox_equiv.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
+- asic/abc_new/openroad/cm_cases.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
 
 ## Metadata
 
@@ -52,7 +93,6 @@
 
 - basic/peepopt/muldiv_c.ys: ERROR: Assertion failed: selection is not empty: t:$div
 - basic/proc/yosys_latch.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 2: t:$adlatch
-- basic/proc/proc_latches.ys: ERROR: Expected warning pattern 'Latch inferred for signal' not found !
 - basic/opt/opt_expr_alu.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: t:$pos
 - basic/opt/opt_expr.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: t:$add r:A_WIDTH=5 r:B_WIDTH=4 r:Y_WIDTH=5 %i %i %i
 - basic/various/mem2reg.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: m:data1 a:src=<inlined>:4.43-4.48 %i
@@ -65,16 +105,30 @@
 - fpga/xilinx/bug1605.ys: ../../../../techlibs/xilinx/cells_sim.v:509: ERROR: cannot refer to 'IS_C_INVERTED' in state-dependent path condition expression; only locally defined nets and variables are allowed
 - fpga/ecp5/abc9_inout_pad_input.ys: ../../../../techlibs/lattice/common_sim.vh:304: ERROR: cannot refer to 'SRMODE' in state-dependent path condition expression; only locally defined nets and variables are allowed
 
+## Diagnostics
+
+- basic/proc/proc_latches.ys: ERROR: Expected warning pattern 'Latch inferred for signal' not found !
+
 ## Slang Semantics
 
 - basic/various/submod.ys: Warning: Drivers conflicting with a constant 1'x driver: module input a[0], ERROR: Found 1 problems in 'check -assert'.
+- basic/opt/opt_dff_dffmux.ys: ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.
+	- Issue with Z bits turning into X bits
 
-### Multiple Async Loads
+### Multiple asynchronous loads
 
 - asic/abc_new/openroad/dffrsn_equiv.ys: <inlined>:6: ERROR: multiple asynchronous loads unsupported
+- asic/abc_new/openroad/remap_netlist.ys: cells_sim.v:33: ERROR: multiple asynchronous loads unsupported
+- asic/liberty/read_liberty.ys: retention.lib.verilogsim:14: ERROR: multiple asynchronous loads unsupported
 
 ## SAT Errors
 
 - basic/opt/pow_assoc.ys: ERROR: Found 2 unproven $equiv cells in 'equiv_status -assert'.
-- basic/opt/opt_dff_dffmux.ys: ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.
+	- I think read_verilog and read_slang disagree on exponentiation associativity
 - basic/various/dynamic_part_select.ys: ERROR: Called with -verify and proof did fail!
+
+## Test Inputs and Paths
+
+### +/ paths
+
+- basic/verific/blackbox_ql.ys: ERROR: '+/quicklogic/qlf_k6n10f/dsp_sim.v': No such file or directory
