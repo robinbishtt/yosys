@@ -20,6 +20,7 @@
 - fpga/xilinx/xilinx_dsp.ys: <inlined>:2: ERROR: unknown module 'DSP48E1'
 - fpga/ice40/ice40_wrapcarry.ys: <inlined>:2: ERROR: unknown module 'SB_CARRY'
 - fpga/ice40/ice40_opt.ys: <inlined>:3: ERROR: unknown module '$__ICE40_CARRY_WRAPPER'
+- fpga/xilinx/bug3670.ys: bug3670.v:4: ERROR: unknown module 'RAMB36E1'
 
 ## Parameter Issues
 
@@ -51,10 +52,17 @@
 - asic/techmap/dfflibmap_formal.ys: <inlined>:4: ERROR: expected member
 - asic/techmap/dlatchlibmap_formal.ys: <inlined>:4: ERROR: expected member
 - fpga/xilinx/xilinx_srl_enable.ys: <inlined>:9: ERROR: expected identifier
+- fpga/xilinx/xilinx_srl.ys: xilinx_srl.v:29: ERROR: expected identifier
 
 ### Net initializers
 
 - asic/techmap/cellmatch.ys: <inlined>:3: ERROR: only 'output' variable port declarations may have an initializer expression
+
+### Procedural assignments to nets
+
+- fpga/ecp5/rom.ys: rom.v:9: ERROR: cannot assign to a net within a procedural context
+- fpga/ice40/rom.ys: rom.v:10: ERROR: cannot assign to a net within a procedural context
+- fpga/ice40/spram.ys: spram.v:19: ERROR: cannot assign to a net within a procedural context
 
 ### Constant inout
 
@@ -79,6 +87,9 @@
 - asic/abc_new/scopeinfo.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
 - asic/abc_new/whitebox_equiv.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
 - asic/abc_new/openroad/cm_cases.ys: ERROR: Attempted to add new module named '\AND2', but a module by that name already exists
+- fpga/analogdevices/blockram.ys: ERROR: Module `sync_ram_sdp' not found!
+- fpga/ecp5/memories.ys: ERROR: Module `sync_ram_sdp' not found!
+- fpga/ice40/memories.ys: ERROR: Module `sync_ram_sdp' not found!
 
 ## Metadata
 
@@ -97,6 +108,8 @@
 - basic/opt/opt_expr.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: t:$add r:A_WIDTH=5 r:B_WIDTH=4 r:Y_WIDTH=5 %i %i %i
 - basic/various/mem2reg.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: m:data1 a:src=<inlined>:4.43-4.48 %i
 - fpga/xilinx/dsp_cascade.ys: ERROR: Assertion failed: selection contains 10 elements instead of the asserted 5: t:FDRE
+- fpga/gatemate/fsm.ys: ERROR: Assertion failed: selection contains 2 elements instead of the asserted 0: t:CC_LUT2
+- fpga/quicklogic/qlf_k6n10f/latches.ys: ERROR: Assertion failed: selection contains 0 elements instead of the asserted 1: t:latchnsre
 
 ## Specify / Timing
 
@@ -114,6 +127,7 @@
 - basic/various/submod.ys: Warning: Drivers conflicting with a constant 1'x driver: module input a[0], ERROR: Found 1 problems in 'check -assert'.
 - basic/opt/opt_dff_dffmux.ys: ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.
 	- Issue with Z bits turning into X bits
+- fpga/xilinx/priority_memory.ys: priority_memory.v:22: ERROR: non-blocking assignments unsupported in design initialization
 
 ### Multiple asynchronous loads
 
@@ -126,9 +140,11 @@
 - basic/opt/pow_assoc.ys: ERROR: Found 2 unproven $equiv cells in 'equiv_status -assert'.
 	- I think read_verilog and read_slang disagree on exponentiation associativity
 - basic/various/dynamic_part_select.ys: ERROR: Called with -verify and proof did fail!
+- fpga/machxo2/tribuf.ys: ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.
 
 ## Test Inputs and Paths
 
 ### +/ paths
 
 - basic/verific/blackbox_ql.ys: ERROR: '+/quicklogic/qlf_k6n10f/dsp_sim.v': No such file or directory
+- fpga/gowin/init.ys: ERROR: unknown command line argument '+/gowin/cells_sim.v'
